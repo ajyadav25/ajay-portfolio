@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ajay Yadav — Full Stack Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --card: #1a1a25;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #f0f0f5;
+    --muted: #8888a0;
+    --accent: #6c63ff;
+    --accent2: #00d4aa;
+    --accent3: #ff6b6b;
+    --glow: rgba(108,99,255,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #6c63ff, #00d4aa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+  }
+  .orb1 { width: 500px; height: 500px; background: rgba(108,99,255,0.12); top: 10%; right: -10%; }
+  .orb2 { width: 300px; height: 300px; background: rgba(0,212,170,0.08); bottom: 20%; left: 5%; }
+
+  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(108,99,255,0.12);
+    border: 1px solid rgba(108,99,255,0.3);
+    border-radius: 2rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem;
+    color: #a89fff;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+  }
+
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent2);
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+  }
+
+  h1 .line2 {
+    background: linear-gradient(135deg, #6c63ff 0%, #00d4aa 60%, #ff6b6b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.85rem 1.75rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .btn-primary:hover { background: #7c74ff; transform: translateY(-1px); }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--text);
+    padding: 0.85rem 1.75rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 1px solid var(--border2);
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .stat-item { text-align: left; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.75rem;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .section-desc {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 480px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .skill-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+  .skill-card:hover::before { opacity: 1; }
+
+  .skill-category {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 2rem;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1.2rem;
+    padding: 2rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+    cursor: default;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(108,99,255,0.06), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  .project-card:hover { border-color: rgba(108,99,255,0.3); transform: translateY(-4px); }
+  .project-card:hover::after { opacity: 1; }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .project-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+  }
+
+  .icon-purple { background: rgba(108,99,255,0.15); }
+  .icon-teal { background: rgba(0,212,170,0.12); }
+  .icon-coral { background: rgba(255,107,107,0.12); }
+
+  .project-date {
+    font-size: 0.72rem;
+    color: var(--muted);
+    padding: 0.25rem 0.65rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border);
+  }
+
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.65rem;
+    letter-spacing: -0.01em;
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .stack-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.35rem;
+    background: rgba(108,99,255,0.1);
+    border: 1px solid rgba(108,99,255,0.2);
+    color: #a89fff;
+    font-weight: 500;
+  }
+
+  .project-highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .project-highlights li {
+    font-size: 0.82rem;
+    color: var(--muted);
+    padding: 0.3rem 0;
+    padding-left: 1.1rem;
+    position: relative;
+    border-top: 1px solid var(--border);
+  }
+
+  .project-highlights li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+    font-size: 0.75rem;
+  }
+
+  /* ── EXPERIENCE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 2.5rem;
+  }
+
+  .timeline-item:last-child { padding-bottom: 0; }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2.4rem;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 3px rgba(108,99,255,0.2);
+  }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+
+  .exp-date {
+    font-size: 0.75rem;
+    color: var(--muted);
+    background: var(--bg3);
+    padding: 0.25rem 0.75rem;
+    border-radius: 2rem;
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  .exp-org {
+    font-size: 0.85rem;
+    color: var(--accent2);
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+
+  .exp-points {
+    list-style: none;
+    padding: 0;
+  }
+
+  .exp-points li {
+    font-size: 0.875rem;
+    color: var(--muted);
+    padding: 0.25rem 0 0.25rem 1.2rem;
+    position: relative;
+    font-weight: 300;
+  }
+
+  .exp-points li::before {
+    content: '·';
+    position: absolute;
+    left: 0.3rem;
+    color: var(--accent);
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  /* ── EDUCATION ── */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .edu-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.75rem;
+    transition: all 0.25s;
+  }
+
+  .edu-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+  .edu-degree {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .edu-school {
+    font-size: 0.85rem;
+    color: var(--accent2);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+  }
+
+  .edu-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .edu-cgpa {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+
+  .edu-year {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ── CERTIFICATIONS ── */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+
+  .cert-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.25s;
+  }
+
+  .cert-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+
+  .cert-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 0.75rem;
+    background: rgba(255,165,0,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .cert-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .cert-issuer {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    text-align: center;
+    padding: 6rem 2rem;
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.5rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--border2);
+    color: var(--text);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    background: var(--card);
+  }
+
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hero-stats { gap: 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">AY</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="about">
+  <section id="hero">
+    <div class="hero-orb orb1"></div>
+    <div class="hero-orb orb2"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Available for full-time opportunities</div>
+      <h1>
+        Hi, I'm Ajay Yadav<br>
+        <span class="line2">Full Stack Developer</span>
+      </h1>
+      <p class="hero-desc">
+        MCA Final Year student at SRM Institute of Science and Technology, Chennai. I build scalable full-stack web applications using Python, Django, Node.js, and modern databases. AWS certified with real-world internship experience.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">View My Projects ↓</a>
+        <a href="#contact" class="btn-outline">Get In Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Projects Built</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Internships</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Certifications</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">7.79</div>
+          <div class="stat-label">CGPA (MCA)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SKILLS -->
+<section id="skills" class="fade-up">
+  <span class="section-label">What I work with</span>
+  <h2>Technical Skills</h2>
+  <p class="section-desc">A curated set of technologies I've used to build production-ready applications.</p>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-category">Languages</div>
+      <div class="skill-title">Programming</div>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Java</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">HTML5</span>
+        <span class="tag">CSS3</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Frameworks</div>
+      <div class="skill-title">Backend & APIs</div>
+      <div class="skill-tags">
+        <span class="tag">Django</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">Django REST Framework</span>
+        <span class="tag">Spring Boot</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Databases</div>
+      <div class="skill-title">Data Storage</div>
+      <div class="skill-tags">
+        <span class="tag">MySQL</span>
+        <span class="tag">MongoDB</span>
+        <span class="tag">SQLite</span>
+      </div>
+    </div>
+    <div class="skill-card">
+      <div class="skill-category">Tools & Cloud</div>
+      <div class="skill-title">DevOps & Platform</div>
+      <div class="skill-tags">
+        <span class="tag">Git</span>
+        <span class="tag">GitHub</span>
+        <span class="tag">AWS</span>
+        <span class="tag">VS Code</span>
+        <span class="tag">MS Office</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="fade-up">
+  <span class="section-label">What I've built</span>
+  <h2>Featured Projects</h2>
+  <p class="section-desc">Real-world full-stack applications built from scratch with clean architecture.</p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon icon-purple">🤖</div>
+        <span class="project-date">Oct – Dec 2025</span>
+      </div>
+      <div class="project-title">AI Face Recognition Attendance System</div>
+      <div class="project-desc">A web-based school attendance platform powered by real-time facial recognition, eliminating manual marking and providing instant dashboard reporting.</div>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">OpenCV</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">MongoDB</span>
+        <span class="stack-tag">JavaScript</span>
+      </div>
+      <ul class="project-highlights">
+        <li>Reduced manual attendance effort by ~80%</li>
+        <li>Real-time face detection with MongoDB tracking</li>
+        <li>Responsive teacher dashboard with export reports</li>
+      </ul>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon icon-teal">🏥</div>
+        <span class="project-date">Jul – Oct 2025</span>
+      </div>
+      <div class="project-title">Hospital Management System</div>
+      <div class="project-desc">A full-stack hospital platform streamlining patient records, appointments, and staff workflows with role-based access and automated notifications.</div>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Django</span>
+        <span class="stack-tag">SQLite</span>
+        <span class="stack-tag">SMTP</span>
+        <span class="stack-tag">JavaScript</span>
+      </div>
+      <ul class="project-highlights">
+        <li>Role-based access: Admin, Doctor, Patient</li>
+        <li>SMTP email notifications for appointments</li>
+        <li>Secure Django auth with session management</li>
+      </ul>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <div class="project-icon icon-coral">🎓</div>
+        <span class="project-date">2023 – 2024</span>
+      </div>
+      <div class="project-title">College ERP System</div>
+      <div class="project-desc">A centralized enterprise resource planning platform for colleges with comprehensive modules for students, staff, courses, and attendance management.</div>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Django</span>
+        <span class="stack-tag">SQLite</span>
+        <span class="stack-tag">HTML</span>
+        <span class="stack-tag">CSS</span>
+      </div>
+      <ul class="project-highlights">
+        <li>Reduced manual data entry by ~60%</li>
+        <li>Multi-role access: Admin, Faculty, Student</li>
+        <li>Centralized student and academic records</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="fade-up">
+  <span class="section-label">Where I've worked</span>
+  <h2>Internships & Experience</h2>
+  <p class="section-desc">Hands-on industry experience across software development and cloud platforms.</p>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Software Development Intern</div>
+        <span class="exp-date">Jan – Mar 2026</span>
+      </div>
+      <div class="exp-org">Kuraki Technologies</div>
+      <ul class="exp-points">
+        <li>Contributed to real-world frontend and backend web development projects</li>
+        <li>Collaborated with team on feature development, bug fixes, and code reviews in an agile environment</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Java Full Stack Intern</div>
+        <span class="exp-date">Aug – Oct 2025</span>
+      </div>
+      <div class="exp-org">EduSkills Academy via AICTE</div>
+      <ul class="exp-points">
+        <li>Built Java-based full-stack applications with Spring Boot and REST API development</li>
+        <li>Completed structured assignments on OOP, MVC architecture, and database integration</li>
+        <li>Earned AICTE-certified Java Full Stack Development certificate</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="exp-header">
+        <div class="exp-role">Cloud Virtual Intern</div>
+        <span class="exp-date">Jan – Apr 2025</span>
+      </div>
+      <div class="exp-org">AWS Academy via AICTE</div>
+      <ul class="exp-points">
+        <li>Completed hands-on labs covering AWS EC2, S3, IAM, VPC, and Cloud Foundations</li>
+        <li>Earned AWS Academy Cloud Foundations certification through AICTE</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION & CERTS -->
+<section id="education" class="fade-up">
+  <span class="section-label">Academic background</span>
+  <h2>Education</h2>
+  <p class="section-desc">Pursuing a Master's in Computer Applications at one of India's premier tech institutions.</p>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="edu-degree">Master of Computer Applications (MCA)</div>
+      <div class="edu-school">SRM Institute of Science and Technology, Chennai</div>
+      <div style="font-size:0.8rem; color: var(--muted); font-weight: 300;">Jun 2024 – May 2026</div>
+      <div class="edu-meta">
+        <div>
+          <div class="edu-cgpa">7.79 / 10</div>
+          <div style="font-size:0.7rem; color: var(--muted); margin-top: 2px;">CGPA</div>
+        </div>
+        <span style="background: rgba(0,212,170,0.1); color: var(--accent2); font-size: 0.72rem; padding: 0.3rem 0.8rem; border-radius: 2rem; border: 1px solid rgba(0,212,170,0.2); font-weight: 600;">Final Year</span>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">Bachelor of Computer Applications (BCA)</div>
+      <div class="edu-school">SRM Institute of Science and Technology, Chennai</div>
+      <div style="font-size:0.8rem; color: var(--muted); font-weight: 300;">Jul 2021 – May 2024</div>
+      <div class="edu-meta">
+        <div>
+          <div class="edu-cgpa">7.28 / 10</div>
+          <div style="font-size:0.7rem; color: var(--muted); margin-top: 2px;">CGPA</div>
+        </div>
+        <span style="background: rgba(108,99,255,0.1); color: #a89fff; font-size: 0.72rem; padding: 0.3rem 0.8rem; border-radius: 2rem; border: 1px solid rgba(108,99,255,0.2); font-weight: 600;">Completed</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 3rem;">
+    <span class="section-label">Achievements</span>
+    <h2 style="margin-bottom: 1.5rem;">Certifications</h2>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-icon">☁️</div>
+        <div>
+          <div class="cert-name">AWS Cloud Foundations</div>
+          <div class="cert-issuer">AWS Academy via AICTE · Jan–Apr 2025</div>
+        </div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-icon">☕</div>
+        <div>
+          <div class="cert-name">Java Full Stack Development</div>
+          <div class="cert-issuer">EduSkills Academy via AICTE · Aug–Oct 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="fade-up">
+  <span class="section-label">Let's connect</span>
+  <h2>Get In Touch</h2>
+  <p style="color: var(--muted); font-size: 1rem; max-width: 440px; margin: 0.75rem auto 0; font-weight: 300; line-height: 1.7;">
+    I'm actively looking for full-time opportunities as a Full Stack Developer. Feel free to reach out!
+  </p>
+  <div class="contact-links">
+    <a href="mailto:ajaybihariy96@gmail.com" class="contact-link">✉ ajaybihariy96@gmail.com</a>
+    <a href="tel:+917052666849" class="contact-link">📞 +91-7052666849</a>
+    <a href="https://www.linkedin.com/in/ajayyadav9" target="_blank" class="contact-link">in LinkedIn</a>
+    <a href="https://github.com/ajyadav25" target="_blank" class="contact-link">⌥ GitHub</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed & built by Ajay Yadav · Noida, India · 2026</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width * 100).toFixed(1);
+      const y = ((e.clientY - r.top) / r.height * 100).toFixed(1);
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+  });
+</script>
+</body>
+</html>
